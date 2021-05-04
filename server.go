@@ -1,11 +1,13 @@
 package main
 
 import (
+	"fmt"
 	"io"
 	"net/http"
 	"os"
 
 	"main/controller"
+	"main/database"
 	"main/middlewares"
 	"main/service"
 
@@ -27,6 +29,10 @@ func main() {
 	setupLogOutput()
 
 	server := gin.Default()
+
+	db := database.DBConn()
+
+	fmt.Println("Db connect", db.Ping())
 
 	server.Use(gin.Recovery(), middlewares.Logger(),
 		middlewares.BasicAuth(), gindump.Dump())

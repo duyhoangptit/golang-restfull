@@ -13,3 +13,9 @@ type Person struct {
 	Age       int8   `json:"age" binding:"gte=1,lte=130"`
 	Email     string `json:"email" binding:"required,email"`
 }
+
+type Post struct {
+	Id      int    `json:"id"`
+	Title   string `json:"title"`
+	Content string `json:"body"`
+}
