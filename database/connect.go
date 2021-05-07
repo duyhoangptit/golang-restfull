@@ -12,13 +12,14 @@ func DBConn() (db *sql.DB) {
 	dbUser := "root"
 	dbPass := "123456"
 	dbName := "db_golang"
-	db, err := sql.Open(dbDriver, dbUser+":"+dbPass+"@/"+dbName)
+	db, err := sql.Open(dbDriver, dbUser+":"+dbPass+"@/"+dbName+"?charset=utf8&parseTime=True&loc=Local")
 
 	if err != nil {
 		fmt.Println(err)
 		panic(err.Error())
+	} else {
+		fmt.Println("Connect db successfull!!!")
 	}
 
-	fmt.Println("Connect db successfull!!!")
 	return db
 }

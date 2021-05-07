@@ -4,6 +4,6 @@
  - using env:	export GIN_MODE=release
  - using code:	gin.SetMode(gin.ReleaseMode)
 
-[GIN-debug] GET    /videos                   --> main.main.func1 (7 handlers)
-[GIN-debug] POST   /videos                   --> main.main.func2 (7 handlers)
+[GIN-debug] GET    /api/v1/videos/           --> main.fetchAll (7 handlers)
+[GIN-debug] POST   /api/v1/videos/           --> main.create (7 handlers)
 [GIN-debug] Listening and serving HTTP on :8080

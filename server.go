@@ -36,27 +36,33 @@ func main() {
 
 	server.Use(gin.Recovery(), middlewares.Logger(),
 		middlewares.BasicAuth(), gindump.Dump())
-
-	server.GET("/videos", func(ctx *gin.Context) {
-		ctx.JSON(200, gin.H{
-			"code":    "00",
-			"message": "Success",
-			"data":    videoController.FindAll(),
-		})
-	})
-
-	server.POST("/videos", func(ctx *gin.Context) {
-		err := videoController.Save(ctx)
-
-		if err != nil {
-			ctx.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
-		} else {
-			ctx.JSON(http.StatusOK, gin.H{
-				"code":    "00",
-				"message": "Success",
-			})
-		}
-	})
+	// videos
+	v1 := server.Group("/api/v1/videos")
+	{
+		v1.GET("/", fetchAll)
+		v1.POST("/", create)
+	}
 
 	server.Run(":8080")
+}
+
+func fetchAll(ctx *gin.Context) {
+	ctx.JSON(200, gin.H{
+		"code":    "00",
+		"message": "Success",
+		"data":    videoController.FindAll(),
+	})
+}
+
+func create(ctx *gin.Context) {
+	err := videoController.Save(ctx)
+
+	if err != nil {
+		ctx.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+	} else {
+		ctx.JSON(http.StatusOK, gin.H{
+			"code":    "00",
+			"message": "Success",
+		})
+	}
 }
